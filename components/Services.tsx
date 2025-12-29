@@ -1,7 +1,7 @@
 import React, { useState, useEffect, memo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SERVICE_CATEGORIES } from '../constants';
-import { Check, ChevronDown, Clock, MousePointerClick, Sparkles } from 'lucide-react';
+import { Check, ChevronDown, Clock, MousePointerClick } from 'lucide-react';
 import { Section } from './ui/Section';
 
 interface ServicesProps {
@@ -137,12 +137,6 @@ const ServicesComponent: React.FC<ServicesProps> = ({ selectedId, onSelect }) =>
 
               {/* Content Layout */}
               <div className="absolute inset-0 flex flex-col justify-center px-6 md:px-10 text-left">
-                  <div className="flex items-center gap-2 mb-1">
-                     <div className="bg-[#B4F5D1] text-primary p-1 rounded-md">
-                        <Sparkles className="w-3.5 h-3.5" />
-                     </div>
-                     <span className="text-[#B4F5D1] text-xs font-bold uppercase tracking-widest">Combos Especiais</span>
-                  </div>
                   
                   <h3 className="font-serif text-3xl md:text-4xl text-white mb-2 leading-tight">
                     {packageCategory.title}
