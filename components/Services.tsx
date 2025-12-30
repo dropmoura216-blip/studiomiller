@@ -107,11 +107,18 @@ const ServicesComponent: React.FC<ServicesProps> = ({ selectedId, onSelect }) =>
           })}
         </div>
 
-        {/* 2. Packages Feature Card (Full Width Banner Style) */}
+        {/* 2. Packages Feature Card (Full Width Banner Style but Identical Text Style) */}
         {packageCategory && (
             <motion.button
               key={packageCategory.id}
               onClick={() => handleCategoryClick(packageCategory.id)}
+              
+              /* Animation: Subtle slide from Right to Left */
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+              
               whileTap={{ scale: 0.99 }}
               whileHover={{ scale: 1.01 }}
               className={`
@@ -132,30 +139,24 @@ const ServicesComponent: React.FC<ServicesProps> = ({ selectedId, onSelect }) =>
                 className={`w-full h-full object-cover object-[center_30%] transition-transform duration-700 ease-out ${activeCategory === packageCategory.id ? 'scale-105' : 'group-hover:scale-105'}`} 
               />
               
-              {/* Gradient Overlay */}
-              <div className={`absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent transition-opacity duration-300 ${activeCategory === packageCategory.id ? 'opacity-90' : 'opacity-80'}`} />
-
-              {/* Content Layout */}
-              <div className="absolute inset-0 flex flex-col justify-center px-6 md:px-10 text-left">
-                  
-                  <h3 className="font-serif text-3xl md:text-4xl text-white mb-2 leading-tight">
-                    {packageCategory.title}
-                  </h3>
-                  
-                  <p className="text-white/80 text-sm md:text-base font-light max-w-[200px] md:max-w-md leading-relaxed">
-                    Experiências completas com condições exclusivas para você.
-                  </p>
-
-                  <div className={`mt-4 inline-flex items-center gap-2 text-white/90 text-xs font-medium uppercase tracking-widest border-b border-white/30 pb-0.5 w-fit transition-all duration-300 ${activeCategory === packageCategory.id ? 'border-white' : 'group-hover:border-white/70'}`}>
-                    {activeCategory === packageCategory.id ? 'Visualizando' : 'Ver Combinações'}
-                  </div>
-              </div>
+              {/* Gradient Overlay - Identical to Main Categories (Bottom Up) */}
+              <div className={`absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent transition-opacity duration-300 ${activeCategory === packageCategory.id ? 'opacity-90' : 'opacity-70'}`} />
 
               {/* Status Indicator (Top Right) */}
               <div className="absolute top-4 right-4 z-20">
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 border ${activeCategory === packageCategory.id ? 'bg-[#B4F5D1] border-[#B4F5D1] scale-100' : 'bg-white/10 backdrop-blur-md border-white/20'}`}>
-                  {activeCategory === packageCategory.id && <Check className="w-4 h-4 text-primary" strokeWidth={3} />}
+                <div className={`w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300 border ${activeCategory === packageCategory.id ? 'bg-[#B4F5D1] border-[#B4F5D1] scale-100' : 'bg-black/20 backdrop-blur-sm border-white/60'}`}>
+                  {activeCategory === packageCategory.id && <Check className="w-3.5 h-3.5 text-primary" strokeWidth={3} />}
                 </div>
+              </div>
+
+              {/* Content Layout - Identical Position, Improved Font Size */}
+              <div className="absolute bottom-0 left-0 right-0 p-5 text-center">
+                 <span className={`block text-white font-medium text-xl md:text-2xl tracking-wide transition-transform duration-300 ${activeCategory === packageCategory.id ? 'translate-y-0' : 'translate-y-0.5'}`}>
+                    {packageCategory.title}
+                 </span>
+                 <span className={`block text-[10px] md:text-xs text-white/70 mt-1 font-light uppercase tracking-widest transition-opacity duration-300 ${activeCategory === packageCategory.id ? 'hidden' : 'opacity-100'}`}>
+                    Ver opções
+                 </span>
               </div>
 
               {activeCategory === packageCategory.id && <motion.div layoutId="active-indicator" className="absolute bottom-2 left-1/2 -translate-x-1/2 text-white md:hidden" initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}><ChevronDown className="w-6 h-6 animate-bounce opacity-80" /></motion.div>}
